@@ -47,6 +47,14 @@ public class ProductosController {
 	}
 	
 	@ApiOperation(
+			value = "Consultar Categoria por ID",
+			notes="Retorna la categoria en base a su id, retorna vacio si la categoria no existe")
+	@GetMapping(path="/{id}")
+	public ResponseEntity<ACPRODUC> getCategoriaById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(productosService.buscarProductoById(id),HttpStatus.OK);
+	}
+	
+	@ApiOperation(
 			value = "Actualizar Producto",
 			notes="Elimina el Producto de la Base de Datos por su ID")
 	@PutMapping(path="/{id}")

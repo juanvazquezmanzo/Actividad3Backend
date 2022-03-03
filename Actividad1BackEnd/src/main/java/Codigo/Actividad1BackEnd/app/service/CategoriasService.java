@@ -34,6 +34,9 @@ public class CategoriasService {
 		return categoria;
 	}
 	
+	public ACCATEGO buscarCategoriaById(Integer id) {
+			return categoriasRepository.findById(id).orElse(null);
+	}
 	
 	public void deleteCategoria(Integer id) {
 		if(categoriasRepository.existsById(id))

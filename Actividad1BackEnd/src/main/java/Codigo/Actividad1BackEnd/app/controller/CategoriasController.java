@@ -35,6 +35,13 @@ public class CategoriasController {
 		return new ResponseEntity<>(listaProductos,HttpStatus.OK);
 	}
 	
+	@ApiOperation(
+			value = "Consultar Categoria por ID",
+			notes="Retorna la categoria en base a su id, retorna vacio si la categoria no existe")
+	@GetMapping(path="/{id}")
+	public ResponseEntity<ACCATEGO> getCategoriaById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(categoriasService.buscarCategoriaById(id),HttpStatus.OK);
+	}
 
 	@ApiOperation(
 			value = "Registrar Categoria",

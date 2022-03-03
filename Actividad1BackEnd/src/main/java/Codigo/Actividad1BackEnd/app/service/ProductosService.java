@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import Codigo.Actividad1BackEnd.app.model.ACCATEGO;
 import Codigo.Actividad1BackEnd.app.model.ACPRODUC;
 import Codigo.Actividad1BackEnd.app.repository.ProductosRepository;
 
@@ -53,6 +54,10 @@ public class ProductosService {
 		
 		return producto;
 	}
+	
+	public ACPRODUC buscarProductoById(Integer id) {
+		return productosRepository.findById(id).orElse(null);
+}
 	
 	
 	public void deleteProducto(Integer id) {
