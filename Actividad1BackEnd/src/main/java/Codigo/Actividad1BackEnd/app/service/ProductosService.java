@@ -4,8 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import Codigo.Actividad1BackEnd.app.model.ACCATEGO;
 import Codigo.Actividad1BackEnd.app.model.ACPRODUC;
 import Codigo.Actividad1BackEnd.app.repository.ProductosRepository;
 
