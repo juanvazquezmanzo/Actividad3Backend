@@ -58,8 +58,9 @@ public class ProductosService {
 }
 	
 	
-	public void deleteProducto(Integer id) {
+	public String deleteProducto(Integer id) {
 		if(productosRepository.existsById(id))
 			productosRepository.deleteById(id);
+		return "{}";
 	}
 }

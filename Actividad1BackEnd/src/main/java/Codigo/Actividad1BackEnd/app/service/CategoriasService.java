@@ -38,9 +38,10 @@ public class CategoriasService {
 			return categoriasRepository.findById(id).orElse(null);
 	}
 	
-	public void deleteCategoria(Integer id) {
+	public String deleteCategoria(Integer id) {
 		if(categoriasRepository.existsById(id))
 			categoriasRepository.deleteById(id);
+		return "{}";
 	}
 	
 
