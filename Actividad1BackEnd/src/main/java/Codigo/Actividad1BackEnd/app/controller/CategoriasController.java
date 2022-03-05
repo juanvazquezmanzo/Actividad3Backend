@@ -18,7 +18,7 @@ import Codigo.Actividad1BackEnd.app.service.CategoriasService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(path="/categorias")
+@RequestMapping(path="/categoria")
 public class CategoriasController {
 	private final CategoriasService categoriasService;
 	@Autowired

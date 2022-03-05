@@ -3,6 +3,10 @@ package Codigo.Actividad1BackEnd.app.controller;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +15,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 import Codigo.Actividad1BackEnd.app.model.ACCATEGO;
 import Codigo.Actividad1BackEnd.app.service.CategoriasService;
+import Codigo.Actividad1BackEnd.app.service.ProductosService;
 
-@SpringBootTest
+@WebMvcTest(CategoriasController.class)
 class CategoriasControllerTest {
-	@Mock private  CategoriasService categoriasService;
-	@InjectMocks private CategoriasController categoriasController;
+	@MockBean private  CategoriasService categoriasService;
+	@Autowired private MockMvc mockMvc;
 	private ACCATEGO categoria;
 	private List<ACCATEGO>listacategorias;
 	private final String nombre="TEST";
@@ -32,29 +42,33 @@ class CategoriasControllerTest {
 		listacategorias.add(categoria);
 	}
 	@Test
-	void testGetCategorias() {
+	void testGetCategorias() throws Exception {
 		when(categoriasService.getCategorias()).thenReturn(listacategorias);
-		assertNotNull(categoriasService.getCategorias());
+		mockMvc.perform(get("/categoria"))
+				.andExpect(status().isOk());
 	}
 	@Test
-	void testGetCategoriaById() {
+	void testGetCategoriaById() throws Exception {
 		when(categoriasService.buscarCategoriaById(id)).thenReturn(categoria);
-		assertNotNull(categoriasService.getCategorias());
+		mockMvc.perform(get("/categoria/"+id))
+				.andExpect(status().isOk());
 	}
 	@Test
-	void testCrearCategoria() {
+	void testCrearCategoria() throws Exception {
 		when(categoriasService.insertarCategoria(nombre)).thenReturn(categoria);
-		assertNotNull(categoriasService.getCategorias());
+		mockMvc.perform(post("/categoria").param("nombre",nombre).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+
 	}
 	@Test
-	void testActualizarCategoria() {
+	void testActualizarCategoria() throws Exception {
 		when(categoriasService.putCategoria(id,nombre)).thenReturn(categoria);
-		assertNotNull(categoriasService.putCategoria(id,nombre));
+		mockMvc.perform(put("/categoria/"+id).param("nombre",nombre).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 	@Test
-	void testBorrarCategoria() {
+	void testBorrarCategoria() throws Exception {
 		when(categoriasService.deleteCategoria(id)).thenReturn("{}");
-		assertNotNull(categoriasService.deleteCategoria(id));
+		mockMvc.perform(get("/categoria/"+id))
+				.andExpect(status().isOk());
 	}
 
 }
